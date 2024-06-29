@@ -13,9 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserType {
+  employee
+  stranger
+  associated
+}
+
 model User {
-  id       Int @id @default(autoincrement())
-  name     String
-  email    String
-  password String
+  id         Int          @id @default(autoincrement())
+  name       String
+  last_name  String
+  email      String       @unique
+  password   String
+  type       UserType
 }
