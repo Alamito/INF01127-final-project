@@ -17,6 +17,9 @@ export const Navbar = () => {
                         <Link href="/admin">
                             Admin
                         </Link>
+                        <Link href="/sign_up">
+                            Sign Up
+                        </Link>
                     </div>
             </nav>
         </div>
