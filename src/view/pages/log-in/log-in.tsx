@@ -2,6 +2,7 @@
 import './log-in.css';
 import React, { useState } from 'react';
 import { CiLogin } from "react-icons/ci";
+import { signIn } from 'next-auth/react';
 
 export const LogIn = () => {
     const [formData, setFormData] = useState({
@@ -16,8 +17,12 @@ export const LogIn = () => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(formData);
+        signIn('credentials', {
+            ...formData,
+            callbackUrl: '/',
+        });
     }
+
 
     return (
         <div className="container-log-in">

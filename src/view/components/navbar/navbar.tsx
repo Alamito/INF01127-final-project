@@ -1,7 +1,11 @@
 import Link from "next/link";
 import "./navbar.css";
+import { getServerSession } from "next-auth";
+import { LogOut } from "../logout/logout";
 
-export const Navbar = () => {
+export const Navbar = async () => {
+    const session = await getServerSession();
+
     return (
         <div className="container-nav">
             <nav>
@@ -17,12 +21,22 @@ export const Navbar = () => {
                         <Link href="/admin">
                             Admin
                         </Link>
-                        <Link href="/log_in">
+                        <Link href="/api/auth/signin">
                             Log In
                         </Link>
                         <Link href="/sign_up">
                             Sign Up
                         </Link>
+                        {session?.user?.name ? (
+                            <>
+                                <p>Olá, {session?.user?.name}</p>
+                                <LogOut />
+                            </>
+                        ) : (
+                            <>
+                                <p>num ta logado</p>
+                            </>
+                        )}
                     </div>
             </nav>
         </div>
