@@ -17,6 +17,9 @@ export const Navbar = () => {
                         <Link href="/admin">
                             Admin
                         </Link>
+                        <Link href="/log_in">
+                            Log In
+                        </Link>
                         <Link href="/sign_up">
                             Sign Up
                         </Link>
