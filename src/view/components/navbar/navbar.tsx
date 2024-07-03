@@ -6,6 +6,17 @@ import { LogOut } from "../logout/logout";
 export const Navbar = async () => {
     const session = await getServerSession();
 
+    const userIsEmployee = async (email: string) => {
+        const res = await fetch(`http://localhost:8080/api/isEmployee/${email}`);
+        const data = await res.json();
+        
+        if (data) {
+            return data.isEmployee;
+        }
+
+        return false;
+    }  
+
     return (
         <div className="container-nav">
             <nav>
@@ -18,24 +29,29 @@ export const Navbar = async () => {
                         <Link href="/">
                             Home
                         </Link>
-                        <Link href="/admin">
-                            Admin
-                        </Link>
-                        <Link href="/api/auth/signin">
-                            Log In
-                        </Link>
-                        <Link href="/sign_up">
-                            Sign Up
-                        </Link>
+                        {await userIsEmployee(session?.user?.email as string) ? (
+                            <Link href="/admin">
+                                Admin
+                            </Link>
+                        ) : (
+                                null
+                            )}
                         {session?.user?.name ? (
                             <>
-                                <p>Olá, {session?.user?.name}</p>
+                                <div>
+                                    <span>Olá, {session?.user?.name}</span>
+                                </div>
                                 <LogOut />
                             </>
                         ) : (
-                            <>
-                                <p>num ta logado</p>
-                            </>
+                            <div className="container-register">
+                                <Link href="/api/auth/signin">
+                                    Log In
+                                </Link>
+                                <Link href="/sign_up">
+                                    Sign Up
+                                </Link>
+                            </div>
                         )}
                     </div>
             </nav>

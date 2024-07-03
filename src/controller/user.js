@@ -14,3 +14,13 @@ export async function verifyCredentials(data) {
         },
     });
 }
+
+export async function isEmployee(email) {
+    const user = await prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
+
+    return user.type === 'employee';
+}
