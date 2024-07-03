@@ -18,3 +18,8 @@ nav {
     gap: 1rem;
     font-weight: bold;
 }
+
+.container-register {
+    display: flex;
+    gap: 1rem;
+}
