@@ -10,11 +10,7 @@ export const Navbar = async () => {
         const res = await fetch(`http://localhost:8080/api/isEmployee/${email}`);
         const data = await res.json();
         
-        if (data) {
-            return data.isEmployee;
-        }
-
-        return false;
+        return data.isEmployee;
     }  
 
     return (
