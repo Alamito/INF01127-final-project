@@ -27,3 +27,12 @@ model User {
   password   String
   type       UserType
 }
+
+model Restaurants {
+  id         Int          @id @default(autoincrement())
+  name       String
+  total_tables Int
+  tables_reserved Int     @default(0)
+  available Boolean       @default(true)
+  source_image String
+}

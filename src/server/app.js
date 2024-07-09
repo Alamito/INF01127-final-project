@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { createUser, verifyCredentials, isEmployee } from '../controller/user.js';
+import { createUser, verifyCredentials, isEmployee, isStranger } from '../controller/user.js';
 
 const app = express();
 const port = 8080;
@@ -37,6 +37,15 @@ app.get('/api/isEmployee/:email', async (req, res) => {
     try {
         const userIsEmployee = await isEmployee(req.params.email);
         res.status(200).json({ 'isEmployee': userIsEmployee });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/isStranger/:email', async (req, res) => {
+    try {
+        const userIsStranger = await isStranger(req.params.email);
+        res.status(200).json({ 'isStranger': userIsStranger });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
