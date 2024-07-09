@@ -2,18 +2,19 @@
 
 import "./card.css";
 import Image from "next/image";
+import { _Card } from "@/model/class/card";
 
-export const Card = ({ title, description, image }: { title: string, description: string, image: any }) => {
+export const Card = (card: _Card) => {
     return (
         <div className="container-card">
             <div>
-                <Image src={image} alt={title} width={300} height={200} />
+                <Image src={card.image} alt={card.title} width={300} height={200} />
             </div>
             <div className="container-description">
-                <h2>{title}</h2>
-                <p>{description}</p>
+                <h2>{card.title}</h2>
+                <p>{card.description}</p>
             </div>
-            <button className="button-reserve"><span>Reserve</span></button>
+            <button className={`button-reserve ${card.unavailable ? "unavailable" : ""}`}><span>{!card.unavailable ? "Reserve" : "Unavailable"}</span></button>
         </div>
     );
 };
