@@ -17,8 +17,8 @@ export const Navbar = async () => {
         <div className="container-nav">
             <nav>
                 <div>
-                    <a href="" className="text-2x1 font-bold">
-                        Nome legal
+                    <a href="/" className="title">
+                        CliqueClube
                     </a>
                 </div>
                     <div className="container-options">
