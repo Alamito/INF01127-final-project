@@ -24,3 +24,13 @@ export async function isEmployee(email) {
 
     return user.type === 'employee';
 }
+
+export async function isStranger(email) {
+    const user = await prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
+
+    return user.type === 'stranger';
+}
