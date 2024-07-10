@@ -1,6 +1,6 @@
 import "./home.css";
 import { Card } from "@/view/components/card/card";
-import campoDeFutebol from "@/assets/campo_de_futebol.jpeg";
+import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
 import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
