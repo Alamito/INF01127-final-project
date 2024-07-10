@@ -1,10 +1,9 @@
-// "use client";
-
 import "./home.css";
 import { Card } from "@/view/components/card/card";
-import campoDeFutebol from "@/assets/campo_de_futebol.jpeg";
+import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
+import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
 
 export const Home = async () => {
     const session = await getServerSession();
@@ -54,7 +53,8 @@ export const Home = async () => {
 
     return (
         <div className="container-home">
-            <h1>Home</h1>
+            <h1 className="title-home">MAKE YOUR RESERVATION</h1>
+            <CardRestaurant isLogged={session?.user?.name ? true : false}/>
             <div className="container-cards">
                 {cards.map((card: _Card) => (
                     <Card {...card}/>
