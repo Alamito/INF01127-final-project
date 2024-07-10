@@ -54,7 +54,7 @@ export const Home = async () => {
     return (
         <div className="container-home">
             <h1 className="title-home">MAKE YOUR RESERVATION</h1>
-            <CardRestaurant isStranger={await userIsStranger()}/>
+            <CardRestaurant isLogged={session?.user?.name ? true : false}/>
             <div className="container-cards">
                 {cards.map((card: _Card) => (
                     <Card {...card}/>

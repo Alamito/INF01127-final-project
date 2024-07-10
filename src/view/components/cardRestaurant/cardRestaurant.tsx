@@ -14,7 +14,7 @@ interface Restaurant {
     source_image: string;
 }
 
-export default function CardRestaurant({isStranger}: {isStranger: boolean}) {
+export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
@@ -44,8 +44,8 @@ export default function CardRestaurant({isStranger}: {isStranger: boolean}) {
                     <h2>{restaurant.name}</h2>
                     <span className="total-tables-available">Reservations available <strong>{restaurant.total_tables - restaurant.tables_reserved}</strong></span>
                 </div>
-                <button onClick={() => reserveRestaurant(restaurant.id)} className={`button-reserve-restaurant ${restaurant.available && isStranger ? "unavailable" : ""}`}>
-                    <span>{restaurant.available && !isStranger ? "Reserve" : "Unavailable"}</span>
+                <button onClick={() => reserveRestaurant(restaurant.id)} className={`button-reserve-restaurant ${restaurant.available && !isLogged ? "unavailable" : ""}`}>
+                    <span>{restaurant.available && isLogged ? "Reserve" : "Unavailable"}</span>
                 </button>
             </div>
         ))}
