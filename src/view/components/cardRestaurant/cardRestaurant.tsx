@@ -2,7 +2,6 @@
 
 import './cardRestaurant.css';
 import { useEffect, useState } from 'react';
-import restaurant1 from '@/assets/restaurant1.jpg';
 import Image from 'next/image';
 
 interface Restaurant {
