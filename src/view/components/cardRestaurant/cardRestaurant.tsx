@@ -33,9 +33,9 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
     }
 
     return (
-        <div className="container-card-restaurant">
+        <div className="container-restaurants">
         {restaurants.map((restaurant) => (
-            <div key={restaurant.id}> {}
+            <div className="container-card-restaurant" key={restaurant.id}> {}
                 <div>
                     <Image src={`/${restaurant.source_image}`} alt='Restaurante' width={300} height={200} />
                 </div>

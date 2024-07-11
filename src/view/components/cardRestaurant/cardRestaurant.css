@@ -1,3 +1,11 @@
+.container-restaurants {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
 .container-card-restaurant {
     display: flex;
     flex-direction: column;
