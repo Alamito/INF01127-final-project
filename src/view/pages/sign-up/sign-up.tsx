@@ -49,7 +49,7 @@ export const SignUp = () => {
                     
                 <label className="radio">
                     <input type="radio" name="type" value="stranger" checked={formData.type === 'stranger'} onChange={handleInputChange}/>
-                    <span className="name">Stranger</span>
+                    <span className="name">Visitor</span>
                 </label>
             </div>
 
