@@ -1,6 +1,6 @@
 "use client";
 
-import './cardRestaurant.css';
+import './cardAdmin.css';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -27,10 +27,15 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
         fetchSessionAndData();
     }, []);
 
-    const reserveRestaurant = async (restaurantID: number) => {
-        await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
+    const deleteRestaurant = async (restaurantID: number) => {
+        await fetch(`http://localhost:8080/api/deleteRestaurant/${restaurantID}`);
         window.location.reload();
     }
+
+    /* const editRestaurant = async (restaurantID: number) => {
+        await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
+        window.location.reload();
+    } */
 
     return (
         <div className="container-card-geral">
@@ -43,9 +48,14 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
                     <h2>{restaurant.name}</h2>
                     <span className="total-tables-available">Reservations available <strong>{restaurant.total_tables - restaurant.tables_reserved}</strong></span>
                 </div>
-                <button onClick={() => reserveRestaurant(restaurant.id)} className={`button-reserve-restaurant ${restaurant.available && !isLogged ? "unavailable" : ""}`}>
-                    <span>{restaurant.available && isLogged ? "Reserve" : "Unavailable"}</span>
-                </button>
+                <div className="container-buttons-restaurant">
+                    <button onClick={() => deleteRestaurant(restaurant.id)} className={`button-delete-restaurant`}>
+                        <span>Delete</span>
+                    </button>
+                    <button className={`button-edit-restaurant`}>
+                        <span>Edit</span>
+                    </button>
+                </div>
             </div>
         ))}
     </div>

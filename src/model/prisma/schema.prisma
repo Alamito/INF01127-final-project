@@ -36,3 +36,11 @@ model Restaurants {
   available Boolean       @default(true)
   source_image String
 }
+
+model Space {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  available   Boolean       @default(true)
+  source_image String
+}

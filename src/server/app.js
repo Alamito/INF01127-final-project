@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { createUser, verifyCredentials, isEmployee, isStranger } from '../controller/user.js';
-import { getRestaurants, reserveRestaurant } from '../controller/restaurant.js';
+import { getRestaurants, reserveRestaurant, deleteRestaurant , createRestaurant} from '../controller/restaurant.js';
+import { getSpaces , createSpace, reserveSpace, deleteSpace} from '../controller/space.js';
 
 const app = express();
 const port = 8080;
@@ -65,6 +66,54 @@ app.get('/api/reserveRestaurant/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const reserve = await reserveRestaurant(id);
+        res.status(200).json(reserve);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/deleteRestaurant/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const reserve = await deleteRestaurant(id);
+        res.status(200).json(reserve);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.post('/api/createSpace', async (req, res) => {
+    try {
+        await createSpace(req.body);
+        res.status(201).json({ message: 'Space created' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/spaces', async (req, res) => {
+    try {
+        const spaces = await getSpaces();
+        res.status(200).json(spaces);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/reserveSpace/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const reserve = await reserveSpace(id);
+        res.status(200).json(reserve);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/deleteSpace/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const reserve = await deleteSpace(id);
         res.status(200).json(reserve);
     } catch (error) {
         res.status(500).json({ message: error.message });
