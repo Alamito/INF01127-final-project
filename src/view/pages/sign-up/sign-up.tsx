@@ -11,7 +11,7 @@ export const SignUp = () => {
         password: '',
         type: 'stranger'
     });
-
+    
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
         setFormData({...formData, [name]: value});

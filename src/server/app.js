@@ -1,9 +1,9 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors';
+import cors from 'cors'; 
 import { createUser, verifyCredentials, isEmployee, isStranger } from '../controller/user.js';
 import { getRestaurants, reserveRestaurant, deleteRestaurant , createRestaurant} from '../controller/restaurant.js';
-import { getSpaces , createSpace, reserveSpace, deleteSpace} from '../controller/space.js';
+import { getSpaces, createSpace, reserveSpace, deleteSpace} from '../controller/space.js';
 
 const app = express();
 const port = 8080;
