@@ -1,9 +1,9 @@
 import "./home.css";
-import { Card } from "@/view/components/card/card";
 import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
 import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
+import { CardPlace } from "@/view/components/card/cardPlace";
 
 export const Home = async () => {
     const session = await getServerSession();
@@ -53,11 +53,11 @@ export const Home = async () => {
 
     return (
         <div className="container-home">
-            <h1 className="title-home">MAKE YOUR RESERVATION</h1>
+            <h1 className="display-1 mb-5"> Faça sua Reserva </h1>
             <CardRestaurant isLogged={session?.user?.name ? true : false}/>
             <div className="container-cards">
-                {cards.map((card: _Card) => (
-                    <Card {...card}/>
+                {cards.map((card: _Card, index) => (
+                    <CardPlace key={index} {...card}/>
                 ))}
             </div>
         </div>

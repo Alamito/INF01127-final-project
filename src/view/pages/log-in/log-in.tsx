@@ -16,6 +16,7 @@ export const LogIn = () => {
     };
 
     const handleSubmit = (event: any) => {
+        console.log('AAAAAAAAAAAAA')
         event.preventDefault();
         signIn('credentials', {
             ...formData,
