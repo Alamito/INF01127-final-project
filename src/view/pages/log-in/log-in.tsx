@@ -32,7 +32,7 @@ export const LogIn = () => {
 
             </Col>
             <Col xs={4}>
-                <Card style={{ marginTop: '50%', borderRadius: '15px', padding:'20px' }}>
+                <Card style={{ marginTop: '20vh', borderRadius: '15px', padding:'20px' }}>
                     <CardBody>
                         <h1 className='display-3 m-4'>Entrar</h1>
                         <FloatingLabel
