@@ -17,6 +17,7 @@ enum UserType {
   employee
   stranger
   associated
+  admin
 }
 
 model User {
@@ -31,6 +32,7 @@ model User {
 model Restaurants {
   id         Int          @id @default(autoincrement())
   name       String
+  description String
   total_tables Int
   tables_reserved Int     @default(0)
   available Boolean       @default(true)

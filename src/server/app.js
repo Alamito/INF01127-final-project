@@ -53,6 +53,16 @@ app.get('/api/isStranger/:email', async (req, res) => {
     }
 });
 
+app.post('/api/createRestaurant', async (req, res) => {
+    try {
+        await createRestaurant(req.body);
+        res.status(201).json({ message: 'Restaurante Criado' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 app.get('/api/restaurants', async (req, res) => {
     try {
         const restaurants = await getRestaurants();
