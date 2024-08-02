@@ -4,6 +4,7 @@ import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
 import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
 import { CardPlace } from "@/view/components/card/cardPlace";
+import { GenericCalendar } from "@/view/components/calendar/calendar";
 
 export const Home = async () => {
     const session = await getServerSession();
@@ -54,6 +55,7 @@ export const Home = async () => {
     return (
         <div className="container-home">
             <h1 className="display-1 mb-5"> Faça sua Reserva </h1>
+            <GenericCalendar title="me"/>
             <CardRestaurant isLogged={session?.user?.name ? true : false}/>
             <div className="container-cards">
                 {cards.map((card: _Card, index) => (
