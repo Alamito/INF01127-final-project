@@ -45,7 +45,7 @@ export const Addspace = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formDataSpace)
+            body: JSON.stringify(formDataSpace),
         }
         if (spaceType=='restaurant') {
             config.body = JSON.stringify(formDataRestaurant);
@@ -87,7 +87,7 @@ export const Addspace = () => {
         </div>
         }
 
-        <input className="input-style" placeholder="Total de Mesas" hidden id='tables' name="total_tables" type="number" style={{width: '175px'}} onChange={handleInputChange}></input>
+        <input className="input-style" placeholder="Total de Mesas" hidden id='tables' name="total_tables" type="number" min={1} style={{width: '175px'}} onChange={handleInputChange}></input>
 
         <div className='actions'>
         <button className="button" onClick={handleSubmit}>
