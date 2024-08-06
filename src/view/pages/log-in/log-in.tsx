@@ -1,9 +1,9 @@
 "use client";
 import './log-in.css';
 import React, { useState } from 'react';
-import { CiLogin } from "react-icons/ci";
 import { signIn } from 'next-auth/react';
 import { Button, Card, CardBody, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap';
+import Link from 'next/link';
 
 export const LogIn = () => {
     const [formData, setFormData] = useState({
@@ -45,12 +45,16 @@ export const LogIn = () => {
                         </FloatingLabel>
 
                         <div className="d-flex flex-column m-5">
-                            <Button variant="success" size="lg" className="mb-2" onClick={handleSubmit}>
+                            <Button variant="success" size="lg" className="mb-2 btn-lg" onClick={handleSubmit}>
                                 Acessar
                             </Button>
-                            <Button variant="link" className="p-0">
-                                Cadastrar-se
-                            </Button>
+                            <div className="d-flex justify-content-center">
+                                <Link href="/sign_up">
+                                    <Button variant="link" className="p-0">
+                                        Cadastrar-se
+                                    </Button>
+                                </Link>
+                            </div>
                         </div>
                     </CardBody>
                 </Card>
