@@ -16,14 +16,14 @@ export const Navbar = async () => {
     return (
         <div className="container-nav">
             <nav>
-                <div>
+                <div className="logo">
                     <a href="/" className="title">
                         CliqueClube
                     </a>
                 </div>
                     <div className="container-options">
                         <Link href="/">
-                            Home
+                            Início
                         </Link>
                         {await userIsEmployee(session?.user?.email as string) ? (
                             <Link href="/admin">
@@ -34,7 +34,7 @@ export const Navbar = async () => {
                             )}
                         {session?.user?.name ? (
                             <>
-                                <div>
+                                <div className="user-logged">
                                     <span>Olá, {session?.user?.name}</span>
                                 </div>
                                 <LogOut />
@@ -42,10 +42,7 @@ export const Navbar = async () => {
                         ) : (
                             <div className="container-register">
                                 <Link href="/api/auth/signin">
-                                    Log In
-                                </Link>
-                                <Link href="/sign_up">
-                                    Sign Up
+                                    Entrar
                                 </Link>
                             </div>
                         )}

@@ -20,10 +20,18 @@ nav {
 }
 
 .container-options {
-    color: white;
     display: flex;
     gap: 1rem;
     font-weight: bold;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+.container-options a, .user-logged span {
+    color: white;
+    text-decoration: none;
 }
 
 .container-register {
