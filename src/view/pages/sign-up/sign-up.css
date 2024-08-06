@@ -1,11 +1,17 @@
 .container-sign-in {
-    padding: 5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    background-color: #c5c5c5;
+    background-image: url('../../../../public/assets/luxury-house.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+}
+
+.container-sign-in .card-sign-in {
+    height: 570px;
+    margin-right: 120px;
+    margin-top: 50px;
+    width: 415px;
 }
 
 .input-style {
@@ -23,6 +29,7 @@
   }
 
   .radio-inputs {
+    width: 100% !important;
     position: relative;
     display: flex;
     flex-wrap: wrap;
