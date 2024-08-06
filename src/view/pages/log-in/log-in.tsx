@@ -17,7 +17,6 @@ export const LogIn = () => {
     };
 
     const handleSubmit = (event: any) => {
-        console.log('AAAAAAAAAAAAA')
         event.preventDefault();
         signIn('credentials', {
             ...formData,
@@ -39,10 +38,10 @@ export const LogIn = () => {
                             controlId="floatingInput"
                             label="E-mail"
                             className="mb-3 mt-5">
-                            <Form.Control type="email" placeholder="name@example.com" onChange={handleInputChange}/>
+                            <Form.Control name="email" type="email" placeholder="name@example.com" onChange={handleInputChange}/>
                         </FloatingLabel>
                         <FloatingLabel controlId="floatingPassword" label="Senha">
-                            <Form.Control type="password" placeholder="Senha" onChange={handleInputChange}/>
+                            <Form.Control name="password" type="password" placeholder="Senha" onChange={handleInputChange}/>
                         </FloatingLabel>
 
                         <div className="d-flex flex-column m-5">
