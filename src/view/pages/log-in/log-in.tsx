@@ -32,7 +32,8 @@ export const LogIn = () => {
             <div className='actions'>
             <button className="button" onClick={handleSubmit}>
                 <CiLogin />
-                <p className="text">Log In</p>
+                <p className="text">Log in</p>
+
             </button>
             </div>
 
