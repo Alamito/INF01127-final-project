@@ -17,22 +17,40 @@ enum UserType {
   employee
   stranger
   associated
+  admin
 }
 
 model User {
-  id         Int          @id @default(autoincrement())
-  name       String
-  last_name  String
-  email      String       @unique
-  password   String
-  type       UserType
+  id            Int          @id @default(autoincrement())
+  name          String
+  last_name     String
+  email         String       @unique
+  password      String
+  type          UserType
+  reservations  Int
 }
 
 model Restaurants {
   id         Int          @id @default(autoincrement())
   name       String
+  description String
   total_tables Int
   tables_reserved Int     @default(0)
   available Boolean       @default(true)
   source_image String
+}
+
+model Space {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  available   Boolean      @default(true)
+  source_image String
+}
+
+model Reserve {
+  id        Int             @id @default(autoincrement())
+  date      DateTime        
+  id_user   Int
+  id_space  Int    
 }
