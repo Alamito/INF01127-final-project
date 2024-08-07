@@ -25,7 +25,7 @@ export const CardPlace = (props: _Card) => {
             </CardBody>
             <CardFooter>
             {props.unavailable ? 
-                <Button variant="danger"> Indisponivel</Button>
+                <Button variant="danger" disabled> Indisponivel</Button>
                 :
                 <Button variant="primary"> Alugar </Button>
                 }

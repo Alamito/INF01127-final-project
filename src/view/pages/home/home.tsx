@@ -4,7 +4,7 @@ import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
 import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
 import { CardPlace } from "@/view/components/card/cardPlace";
-import { GenericCalendar } from "@/view/components/calendar/calendar";
+import { Col, Container, Row } from "react-bootstrap";
 
 export const Home = async () => {
     const session = await getServerSession();
@@ -55,13 +55,20 @@ export const Home = async () => {
     return (
         <div className="container-home">
             <h1 className="display-1 mb-5"> Faça sua Reserva </h1>
-            <GenericCalendar title="me"/>
+            <div className="separator"></div>
             <CardRestaurant isLogged={session?.user?.name ? true : false}/>
-            <div className="container-cards">
-                {cards.map((card: _Card, index) => (
-                    <CardPlace key={index} {...card}/>
-                ))}
-            </div>
+            <div className="separator"></div>
+            <Container style={{ width: '70%' }} className='p-5'>
+                <h5 className='display-6 mb-4'>Infraestrutura</h5>
+                <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversar areas de lazer perfeitas para aproveitar com a família e amigos.</p>
+                <Row>
+                    {cards.map((card: _Card, index) => (
+                        <Col key={index} xs={12} sm={6} md={6} lg={4} className="mb-4 d-flex justify-content-center align-items-center">
+                            <CardPlace key={index} {...card}/>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
         </div>
     );
 }
