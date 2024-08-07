@@ -49,6 +49,8 @@ model Space {
 }
 
 model Reserve {
-  id      Int             @id @default(autoincrement())
-  date    DateTime        
+  id        Int             @id @default(autoincrement())
+  date      DateTime        
+  id_user   Int
+  id_space  Int    
 }
