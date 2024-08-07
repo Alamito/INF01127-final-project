@@ -49,7 +49,7 @@ export const Home = async () => {
             description: "Descrição 5",
             image: campoDeFutebol,
             unavailable: false || await userIsStranger(),
-        }
+        },
     ];
 
     return (
