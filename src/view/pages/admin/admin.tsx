@@ -1,7 +1,7 @@
 import "./admin.css"
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
-import TableRestaurant from '@/view/components/cardAdmin/cardAdmin';
+import TableRestaurant, { TablePlaces } from '@/view/components/adminTables/adminTables'
 import { Button, Container } from 'react-bootstrap';
 
 export const Admin = async () => {
@@ -23,7 +23,7 @@ export const Admin = async () => {
             <div className="separator"></div>
             <Container>
             <h5 className='display-6 mb-4 align-self-start'>Infraestrutura</h5>
-            <TableRestaurant isLogged={session?.user?.name ? true : false}/>
+            <TablePlaces isLogged={session?.user?.name ? true : false}/>
             <Button variant="link">
                 <a href="/addspace">
                     Adicionar Espaço

@@ -5,6 +5,8 @@ import { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button, Table } from 'react-bootstrap';
 import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
+import { FaCheck } from 'react-icons/fa';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 interface Restaurant {
     id: number;
@@ -127,7 +129,12 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
                 <tr key={index}>
                     <td>{card.title}</td>
                     <td>{card.description}</td>
-                    <td>{card.unavailable}</td>
+                    <td className='d-flex justify-content-center'
+                    style={{height: '100%'}}>
+                            {card.unavailable 
+                        ? <FaExclamationTriangle size={30} style={{ color: 'red' }} className='m-2' />  
+                        : <FaCheck size={30} style={{color: 'green'}} className='m-2'/>}
+                    </td>
                     <td style={{ width: '150px'}}>
                         <Button variant="danger" className="me-2">
                             Delete
