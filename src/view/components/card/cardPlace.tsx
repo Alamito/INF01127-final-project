@@ -26,11 +26,26 @@ export const CardPlace = () => {
         fetchSessionAndData();
     }, []);
 
+    const reserveSpace = async (spaceID: number) => {
+        const response = await fetch(`http://localhost:8080/api/reserveSpace/${spaceID}`);
+        const data = await response.json();
+        
+        setSpaces(spaces.map((space) => {
+            if (space.id === spaceID) {
+                return {
+                    ...space,
+                    available: data.available
+                };
+            }
+            return space;
+        }));
+    };
+
     return (
         <div className="d-flex justify-content-around">
             {spaces.map((space) => {
                 return (
-                    <Card style={{ width: '300px', height: '400px' }}>
+                    <Card style={{ width: '300px', height: '400px' }} key={space.id}>
                         <CardHeader style={{ height: '200px'}} className=" d-flex justify-content-center align-items-center p-0 border rounded">
                             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
                                 <Image 
@@ -49,7 +64,7 @@ export const CardPlace = () => {
                         </CardBody>
                         <CardFooter>
                         {space.available ? 
-                            <Button variant="primary"> Alugar </Button>
+                            <Button variant="primary" onClick={() => reserveSpace(space.id)}> Alugar </Button>
                             :
                             <Button variant="danger" disabled> Indisponivel</Button>
                         }
