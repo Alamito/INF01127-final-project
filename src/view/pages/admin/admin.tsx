@@ -1,20 +1,36 @@
-import './admin.css';
-import { Card } from "@/view/components/card/card";
-import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
+import "./admin.css"
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
-import CardRestaurant from "@/view/components/cardAdmin/cardAdmin";
+import TableRestaurant from '@/view/components/cardAdmin/cardAdmin';
+import { Button, Container } from 'react-bootstrap';
 
 export const Admin = async () => {
     const session = await getServerSession();
 
     return (
-        <div className="container-spaces">
-            <h1 className="title-admin-spaces">Spaces</h1>
-            <a href="/addspace" className="add-space">
-                Add Space
-            </a>
-            <CardRestaurant isLogged={session?.user?.name ? true : false}/>
+        <div className="container-home">
+            <h1 className="display-1 m-5">Administrador</h1>
+            <div className="separator"></div>
+            <Container>
+            <h5 className='display-6 mb-4 align-self-start'>Restaurantes</h5>
+            <TableRestaurant isLogged={session?.user?.name ? true : false}/>
+            <Button variant="link">
+                <a href="/addspace">
+                    Adicionar Espaço
+                </a>
+            </Button>   
+            </Container>
+            <div className="separator"></div>
+            <Container>
+            <h5 className='display-6 mb-4 align-self-start'>Infraestrutura</h5>
+            <TableRestaurant isLogged={session?.user?.name ? true : false}/>
+            <Button variant="link">
+                <a href="/addspace">
+                    Adicionar Espaço
+                </a>
+            </Button>   
+            </Container>
+
         </div>
     );
 }
