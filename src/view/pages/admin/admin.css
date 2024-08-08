@@ -1,4 +1,4 @@
-.container-spaces {
+.container-home {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,19 +6,10 @@
     width: 100%;
 }
 
-.title-admin-spaces {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 20px;
-}
-
-.add-space {
-    width: 200px;
-    padding: 10px;
-    border-radius: 15px;
-    color: white;
-    background-color: #2D5D7B;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
+.separator {
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    height: 2px;
+    width: 100%;
 }
