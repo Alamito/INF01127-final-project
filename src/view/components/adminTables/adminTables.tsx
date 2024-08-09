@@ -60,7 +60,8 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
             </tr>
         </thead>
         <tbody>
-            {restaurants.map((restaurant) => (
+            {restaurants.length > 0
+            ?  restaurants.map((restaurant) => (
                 <tr key={restaurant.id}>
                     <td>{restaurant.name}</td>
                     <td>{restaurant.total_tables - restaurant.tables_reserved}</td>
@@ -75,7 +76,8 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
                         </Button>
                     </td>
                 </tr>
-            ))}
+            ))
+            : <></>}
         </tbody>
     </Table>
     );
@@ -114,7 +116,8 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
             </tr>
         </thead>
         <tbody>
-            {places.map((place) => (
+            {places.length > 0 
+            ? places.map((place) => (
                 <tr key={place.id}>
                     <td>{place.name}</td>
                     <td style={{ width: '150px'}}>
@@ -128,7 +131,8 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
                         </Button>
                     </td>
                 </tr>
-            ))}
+            ))
+            : <></>}
         </tbody>
     </Table>
     );

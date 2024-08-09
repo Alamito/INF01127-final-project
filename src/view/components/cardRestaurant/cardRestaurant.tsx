@@ -33,7 +33,6 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
     }
     
     if (restaurants.length > 0){
-        console.log(restaurants.length)
         return (
             <Container style={{ width: '70%' }} className='p-5'>
             <h5 className='display-6 mb-4'>Restaurantes</h5>
@@ -84,11 +83,14 @@ export function RestaurantCard ( props: RestaurantCardProps): ReactElement {
             </Card.Text>
         </Card.Body>
         <Card.Footer>
-            {props.restaurant.available && (props.restaurant.tables_reserved < props.restaurant.total_tables) && props.isLogged ? (
-                <Button variant="primary" onClick={() => props.reserveRestaurant(props.restaurant.id)}>Reserve</Button>
-            ) : (
-                <Button variant="danger" disabled>Indisponivel</Button>
-            )}
+            { !props.isLogged ? // se não esta logado 
+                <Button variant="primary" disabled>Login Para Reservar</Button>
+             : props.restaurant.available ? // se esta logado ve se nao esta disponível
+                <Button variant="danger" disabled>Indisponível</Button>
+                 : props.restaurant.tables_reserved >= props.restaurant.total_tables ? // se esta disponivel ve se esta esgotado
+                    <Button variant="warning" disabled>Esgotado</Button> 
+                    : <Button variant="success" onClick={() => props.reserveRestaurant(props.restaurant.id)}>Reservar</Button> // se nenhum problema
+                 }
         </Card.Footer>
     </Card>)
 }
