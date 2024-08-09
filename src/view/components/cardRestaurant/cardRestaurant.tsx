@@ -32,24 +32,27 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
         await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
         window.location.reload();
     }
-
-    return (
-        <Container style={{ width: '70%' }} className='p-5'>
-        <h5 className='display-6 mb-4'>Restaurantes</h5>
-        <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversos restaurantes que representam diferentes cozinhas ao redor do mundo.</p>
-        <Row>
-            {restaurants.map((restaurant) => (
-                <Col key={restaurant.id} xs={12} sm={6} md={6} lg={4} className="mb-4 d-flex justify-content-center align-items-center">
-                    <RestaurantCard 
-                        restaurant={restaurant} 
-                        reserveRestaurant={reserveRestaurant} 
-                        isLogged={isLogged} 
-                    />
-                </Col>
-            ))}
-        </Row>
-    </Container>
-);
+    
+    if (restaurants.length > 0){
+        console.log(restaurants.length)
+        return (
+            <Container style={{ width: '70%' }} className='p-5'>
+            <h5 className='display-6 mb-4'>Restaurantes</h5>
+            <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversos restaurantes que representam diferentes cozinhas ao redor do mundo.</p>
+            <Row>
+                {restaurants.map((restaurant) => (
+                    <Col key={restaurant.id} xs={12} sm={6} md={6} lg={4} className="mb-4 d-flex justify-content-center align-items-center">
+                        <RestaurantCard 
+                            restaurant={restaurant} 
+                            reserveRestaurant={reserveRestaurant} 
+                            isLogged={isLogged} 
+                        />
+                    </Col>
+                ))}
+            </Row>
+        </Container>
+        );
+    }
 }
 
 interface RestaurantCardProps { 
