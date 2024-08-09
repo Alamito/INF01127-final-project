@@ -59,14 +59,6 @@ img {
     margin: 10px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    color: white;
-    background-color: #2D5D7B;
-    cursor: pointer;
-    font-weight: bold;
-}
 
 .button-delete-restaurant{
     border-radius: 0 0 0 10px;

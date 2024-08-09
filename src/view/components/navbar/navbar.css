@@ -1,8 +1,8 @@
 .container-nav {
-    height: 3rem;
-    background-color: #2D5D7B;
+    height: 6rem;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid black;
 }
 
 nav {
@@ -14,7 +14,6 @@ nav {
 }
 
 .title {
-    color: white;
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -30,7 +29,6 @@ nav {
 }
 
 .container-options a, .user-logged span {
-    color: white;
     text-decoration: none;
 }
 

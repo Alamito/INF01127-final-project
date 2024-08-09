@@ -14,21 +14,26 @@ export const Admin = async () => {
             <Container>
             <h5 className='display-6 mb-4 align-self-start'>Restaurantes</h5>
             <TableRestaurant isLogged={session?.user?.name ? true : false}/>
-            <Button variant="link">
-                <a href="/addspace">
-                    Adicionar Espaço
-                </a>
-            </Button>   
+            <div className="d-flex justify-content-center align-items-center">
+                <Button variant="link">
+                    <a href="/addspace">
+                        Adicionar Espaço
+                    </a>
+                </Button>  
+            </div>  
             </Container>
             <div className="separator"></div>
             <Container>
             <h5 className='display-6 mb-4 align-self-start'>Infraestrutura</h5>
             <TablePlaces isLogged={session?.user?.name ? true : false}/>
-            <Button variant="link">
-                <a href="/addspace">
-                    Adicionar Espaço
-                </a>
-            </Button>   
+            <div className="d-flex justify-content-center align-items-center">
+                <Button variant="link">
+                    <a href="/addspace">
+                        Adicionar Espaço
+                    </a>
+                </Button>  
+            </div>
+  
             </Container>
 
         </div>
