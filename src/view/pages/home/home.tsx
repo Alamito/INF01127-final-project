@@ -28,7 +28,7 @@ export const Home = async () => {
             <div className="separator"></div>
             <Container style={{ width: '70%' }} className='p-5'>
                 <h5 className='display-6 mb-4'>Infraestrutura</h5>
-                <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversar areas de lazer perfeitas para aproveitar com a família e amigos.</p>
+                <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversas areas de lazer perfeitas para aproveitar com a família e amigos.</p>
                 <CardPlace/>
             </Container>
         </div>

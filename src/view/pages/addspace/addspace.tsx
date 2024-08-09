@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { IoAdd } from 'react-icons/io5';
 
-let available_switch = true;
+let available_switch = false;
 let spaceType = 'space';
 
 export const Addspace = () => {
@@ -27,6 +27,10 @@ export const Addspace = () => {
 
     const handleInputChange = (event: any) => {
         let { name, value } = event.target;
+        
+        if (name=='source_image'){
+            value = "assets/"+value.split('\\')[2];
+        }
         if (name=='available'){
             available_switch = !available_switch;
             value = available_switch;
@@ -71,6 +75,8 @@ export const Addspace = () => {
         <div className="separator"></div>
         <input placeholder="Nome" name="name" className="input-style" type="text" onChange={handleInputChange} required></input>
         <input placeholder="Descrição" name="description" className="input-style" type="text" onChange={handleInputChange}></input>
+
+        <input placeholder="Imagem" name="source_image" className="input-style" type="file" accept="assets/*" onChange={handleInputChange}></input>
 
         { <label className='checkbox d-flex align-items-center justify-content-center'>
             <input type = "checkbox" name="available" onChange={handleInputChange}></input>
