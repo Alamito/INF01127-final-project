@@ -4,12 +4,15 @@ import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { Button, Card, CardBody, Col, Container, FloatingLabel, Form, Row } from 'react-bootstrap';
 import Link from 'next/link';
+import { GenericAlert } from '@/view/components/alert/alert';
+import { FaInfo } from 'react-icons/fa6';
 
 export const LogIn = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const [loginError, setLoginError] = useState(false)
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -18,22 +21,30 @@ export const LogIn = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
+        setLoginError(false);
+        
         const res = await verifyCredentials();
 
         if (res.status === 200) {
             const data = await res.json();
-            
             signIn('credentials', {
                 ...data.user,
                 callbackUrl: '/',
             });
-
             return;
         }
 
         console.log(res.status, 'Error');
-
-    }
+        if (res.status === 401) {
+            setLoginError(true);
+            // Set a timeout to reset loginError after 3 seconds
+            setTimeout(() => {
+                setLoginError(false);
+            }, 3000); // 3000 ms = 3 seconds
+        } else {
+            setLoginError(false);
+        }
+    };
 
     const verifyCredentials = async () => {
         const config = {
@@ -67,7 +78,9 @@ export const LogIn = () => {
                         <FloatingLabel controlId="floatingPassword" label="Senha">
                             <Form.Control name="password" type="password" placeholder="Senha" onChange={handleInputChange}/>
                         </FloatingLabel>
-
+                        <GenericAlert showModal={loginError} theme={'danger'} text={'Usuário ou senha incorretos.'} className='mt-3'>
+                            <FaInfo/>
+                        </GenericAlert>
                         <div className="d-flex flex-column m-5">
                             <Button variant="success" size="lg" className="mb-2 btn-lg" onClick={handleSubmit}>
                                 Acessar

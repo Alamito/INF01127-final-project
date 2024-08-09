@@ -1,5 +1,4 @@
 import "./home.css";
-import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
 import { _Card } from "@/model/class/card";
 import { getServerSession } from "next-auth";
 import CardRestaurant from "@/view/components/cardRestaurant/cardRestaurant";
@@ -21,8 +20,8 @@ export const Home = async () => {
     }
 
     return (
-        <div className="container-home">
-            <h1 className="display-1 mb-5"> Faça sua Reserva </h1>
+        <div className="container-home  bg-white">
+            <h1 className="display-1 m-5"> Faça sua Reserva </h1>
             <div className="separator"></div>
             <CardRestaurant isLogged={session?.user?.name ? true : false}/>
             <div className="separator"></div>

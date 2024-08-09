@@ -12,13 +12,15 @@ interface GenericAlertProps {
     theme: string
     text: string
     children: ReactElement
+    className: string
+    showModal: boolean
 }
 export function GenericAlert (props: GenericAlertProps): ReactElement {
     return (
-        <Alert variant={props.theme} style={{ display: 'inline-flex', alignItems: 'center' }}>
-            <Row style={{ display: 'flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
-                <Col>
-                    <div>{props.children}</div>
+        <Alert show={props.showModal} variant={props.theme} style={{ display: 'inline-flex', alignItems: 'center' }} className={`${props.className}`}>
+            <Row style={{ display: 'flex', alignItems: 'center' }}>
+                <Col xs={1}>
+                    {props.children}
                 </Col>
                 <Col>
                     {props.text}

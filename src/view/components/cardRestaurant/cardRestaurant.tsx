@@ -33,7 +33,6 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
     }
     
     if (restaurants.length > 0){
-        console.log(restaurants.length)
         return (
             <Container style={{ width: '70%' }} className='p-5'>
             <h5 className='display-6 mb-4'>Restaurantes</h5>
