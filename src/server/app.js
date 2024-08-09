@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors'; 
-import { createUser, verifyCredentials, isEmployee, isStranger } from '../controller/user.js';
+import { createUser, verifyCredentials, isEmployee, isStranger, isAdmin } from '../controller/user.js';
 import { getRestaurants, reserveRestaurant, deleteRestaurant , createRestaurant} from '../controller/restaurant.js';
 import { getSpaces, createSpace, reserveSpace, deleteSpace} from '../controller/space.js';
 
@@ -49,6 +49,15 @@ app.get('/api/isStranger/:email', async (req, res) => {
     try {
         const userIsStranger = await isStranger(req.params.email);
         res.status(200).json({ 'isStranger': userIsStranger });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.get('/api/isAdmin/:email', async (req, res) => {
+    try {
+        const userIsAdmin = await isAdmin(req.params.email);
+        res.status(200).json({ 'isAdmin': userIsAdmin });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
