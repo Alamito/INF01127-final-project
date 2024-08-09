@@ -9,7 +9,8 @@ export const SignUp = () => {
         last_name: '',
         email: '',
         password: '',
-        type: 'stranger'
+        type: 'stranger',
+        reservations: 0
     });
     
     const handleInputChange = (event: any) => {

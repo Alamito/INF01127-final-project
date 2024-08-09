@@ -11,8 +11,17 @@ import { FaExclamationTriangle } from 'react-icons/fa';
 interface Restaurant {
     id: number;
     name: string;
+    description: string;
     total_tables: number;
     tables_reserved: number;
+    available: boolean;
+    source_image: string;
+}
+
+interface Place {
+    id: number;
+    name: string;
+    description: string;
     available: boolean;
     source_image: string;
 }
@@ -69,44 +78,8 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
             ))}
         </tbody>
     </Table>
-);
+    );
 }
-
-// --------------------- Mock information about cards
-
-const cards = [{
-    title: "Campo de Futebol de 7",
-    description: "Campo com grama sintética e iluminação. O espaço contém vestiários, churrasqueira e bar.",
-    image: campoDeFutebol,
-    unavailable: true,
-}, 
-{
-    title: "Campo de Futebol de 11",
-    description: "Campo com grama natural e iluminação. O espaço contém vestiários, churrasqueira e bar.",
-    image: campoDeFutebol,
-    unavailable: false,
-},
-{
-    title: "Campo de Futebol de 5",
-    description: "Quadra com pisos flutuantes de madeira e iluminação. O espaço contém vestiários.",
-    image: campoDeFutebol,
-    unavailable: false,
-},
-{
-    title: "Card 4",
-    description: "Descrição 4",
-    image: campoDeFutebol,
-    unavailable: false,
-},
-{
-    title: "Card 5",
-    description: "Descrição 5",
-    image: campoDeFutebol,
-    unavailable: false,
-},
-];
-
-// ----------------------
 
 interface TablePlacesProps{
     isLogged: boolean
@@ -114,29 +87,38 @@ interface TablePlacesProps{
 
 export function TablePlaces(props: TablePlacesProps): ReactElement {
 
+    const [places, setPlaces] = useState<Place[]>([]);
+
+    useEffect(() => {
+        const fetchSessionAndData = async () => {
+            const resPlaces = await fetch("http://localhost:8080/api/spaces");
+            const dataPlaces = await resPlaces.json();
+            setPlaces(dataPlaces);
+        };
+
+        fetchSessionAndData();
+    }, []);
+
+    const deleteSpace = async (spaceID: number) => {
+        await fetch(`http://localhost:8080/api/deleteSpace/${spaceID}`);
+        window.location.reload();
+    }
+
     return (
         <Table striped bordered hover>
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
-                <th>Disponível</th>
+                <th>Reservas dispníveis</th>
                 <th colSpan={2}>Ações</th>
             </tr>
         </thead>
         <tbody>
-            {cards.map((card, index) => (
-                <tr key={index}>
-                    <td>{card.title}</td>
-                    <td>{card.description}</td>
-                    <td className='d-flex justify-content-center'
-                    style={{height: '100%'}}>
-                            {card.unavailable 
-                        ? <FaExclamationTriangle size={30} style={{ color: 'red' }} className='m-2' />  
-                        : <FaCheck size={30} style={{color: 'green'}} className='m-2'/>}
-                    </td>
+            {places.map((place) => (
+                <tr key={place.id}>
+                    <td>{place.name}</td>
                     <td style={{ width: '150px'}}>
-                        <Button variant="danger" className="me-2">
+                        <Button variant="danger" onClick={() => deleteSpace(place.id)} className="me-2">
                             Delete
                         </Button>
                     </td>
@@ -149,7 +131,7 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
             ))}
         </tbody>
     </Table>
-);
+    );
 }
 
 function userIsStranger(): true | PromiseLike<true> {
