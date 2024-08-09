@@ -21,7 +21,6 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
         const fetchSessionAndData = async () => {
             const resRestaurants = await fetch("http://localhost:8080/api/restaurants");
             const dataRestaurants = await resRestaurants.json();
-            console.log(dataRestaurants)
             setRestaurants(dataRestaurants);
         };
 

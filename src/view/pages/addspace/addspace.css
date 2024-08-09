@@ -5,8 +5,16 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
-    background-color: #c5c5c5;
 }
+
+.separator {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  height: 2px;
+  width: 100%;
+}
+
 
 .input-style {
     padding: 10px;

@@ -1,6 +1,7 @@
 "use client";
 import './addspace.css';
 import React, { useState } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
 import { IoAdd } from 'react-icons/io5';
 
 let available_switch = true;
@@ -66,15 +67,16 @@ export const Addspace = () => {
 
     return (
         <div className="container-sign-in">
-        <h1 className="title-space-register">Cadastro de Espaço</h1>
+        <h1 className="display-1">Cadastro de Espaço</h1>
+        <div className="separator"></div>
         <input placeholder="Nome" name="name" className="input-style" type="text" onChange={handleInputChange} required></input>
         <input placeholder="Descrição" name="description" className="input-style" type="text" onChange={handleInputChange}></input>
 
-        { <label className='checkbox'>
+        { <label className='checkbox d-flex align-items-center justify-content-center'>
             <input type = "checkbox" name="available" onChange={handleInputChange}></input>
-            <h1>Disponível</h1>
+            <p className='my-0 mx-2'>Disponível</p>
         </label>}
-{         
+        {         
         <div className="radio-inputs">
             <label className="radio">
                 <input type="radio" name="type" value="space" onChange={updateForm}/>
@@ -89,12 +91,18 @@ export const Addspace = () => {
 
         <input className="input-style" placeholder="Total de Mesas" hidden id='tables' name="total_tables" type="number" min={1} style={{width: '175px'}} onChange={handleInputChange}></input>
 
-        <div className='actions'>
-        <button className="button" onClick={handleSubmit}>
-            <IoAdd className='icone'/>
-            <p className="text">Adicionar</p>
-        </button>
-        </div>
+        <Button onClick={handleSubmit}>
+            <Row>
+                <Col className='d-flex align-items-center justify-content-center'>
+                    <IoAdd className='icone'/>
+                </Col>
+                <Col style={{paddingLeft: '0'}} className='p-2'>
+                    Adicionar
+                </Col>
+            </Row>
+            
+            
+        </Button>
 
     </div>
     );
