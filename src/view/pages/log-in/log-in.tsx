@@ -16,13 +16,37 @@ export const LogIn = () => {
         setFormData({...formData, [name]: value});
     };
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
-        signIn('credentials', {
-            ...formData,
-            callbackUrl: '/',
-        });
+        const res = await verifyCredentials();
+
+        if (res.status === 200) {
+            const data = await res.json();
+            
+            signIn('credentials', {
+                ...data.user,
+                callbackUrl: '/',
+            });
+
+            return;
+        }
+
+        console.log(res.status, 'Error');
+
     }
+
+    const verifyCredentials = async () => {
+        const config = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        }
+        const res = await fetch('http://localhost:8080/api/login', config);
+
+        return res;
+    };
 
     return (
     <Container className="content">

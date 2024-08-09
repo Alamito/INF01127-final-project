@@ -1,6 +1,18 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+interface Credentials {
+    id: string;
+    name: string;
+    email: string;
+    password: string,
+    type: string,
+    reservations: string,
+    callbackUrl: string,
+    csrfToken: string,
+    json: string
+}
+
 const handler = NextAuth({
     pages: {
         signIn: "/log_in"
@@ -9,25 +21,13 @@ const handler = NextAuth({
         CredentialsProvider({
             credentials: {},
             async authorize(credentials, req) {
-
-                const config = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(credentials),
-                }
-                const res = await fetch('http://localhost:8080/api/login', config);
+                const data = credentials as Credentials;
                 
-                if (res.status === 200) {
-                    const data = await res.json();
-                    return {
-                        id: data.user.id,
-                        name: data.user.name,
-                        email: data.user.email,
-                    }
+                return {
+                    id: data.id,
+                    name: data.name,
+                    email: data.email,
                 }
-                return null;
             }
         })
     ]
