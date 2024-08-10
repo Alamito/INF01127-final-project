@@ -29,7 +29,16 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
 
     const reserveRestaurant = async (restaurantID: number) => {
         await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
-        window.location.reload();
+
+        setRestaurants(restaurants.map((restaurant) => {
+            if (restaurant.id === restaurantID) {
+                return {
+                    ...restaurant,
+                    tables_reserved: restaurant.tables_reserved + 1
+                };
+            }
+            return restaurant;
+        }));
     }
     
     if (restaurants.length > 0){
