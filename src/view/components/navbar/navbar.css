@@ -31,6 +31,7 @@ nav {
 
 .container-options a, .user-logged span {
     text-decoration: none;
+    color: #0d6efd;
 }
 
 .container-register {
