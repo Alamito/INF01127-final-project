@@ -15,7 +15,7 @@ interface Space {
 export const CardPlace = () => {
 
     const [spaces, setSpaces] = useState<Space[]>([]);
-
+    
     useEffect(() => {
         const fetchSessionAndData = async () => {
             const resSpaces = await fetch("http://localhost:8080/api/spaces");
@@ -29,7 +29,6 @@ export const CardPlace = () => {
     const reserveSpace = async (spaceID: number) => {
         const response = await fetch(`http://localhost:8080/api/reserveSpace/${spaceID}`);
         const data = await response.json();
-        
         setSpaces(spaces.map((space) => {
             if (space.id === spaceID) {
                 return {
@@ -43,35 +42,38 @@ export const CardPlace = () => {
 
     return (
         <div className="d-flex justify-content-around">
-            {spaces.map((space) => {
-                return (
-                    <Card style={{ width: '300px', height: '400px' }} key={space.id}>
-                        <CardHeader style={{ height: '200px'}} className=" d-flex justify-content-center align-items-center p-0 border rounded">
-                            <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                                <Image 
-                                    src={`/${space.source_image}`} 
-                                    alt={space.name} 
-                                    width={300} 
-                                    height={150} 
-                                    className="border rounded img-fluid"
-                                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
-                                    />
-                            </div>
-                        </CardHeader>
-                        <CardBody>
-                            <CardTitle>{space.name}</CardTitle>
-                            <CardText>{space.description}</CardText>
-                        </CardBody>
-                        <CardFooter>
-                        {space.available ? 
-                            <Button variant="primary" onClick={() => reserveSpace(space.id)}> Alugar </Button>
-                            :
-                            <Button variant="danger" disabled> Indisponivel</Button>
-                        }
-                        </CardFooter>
-                    </Card>
-                );
-            })}
+            {spaces.length > 0 
+                ? spaces.map((space) => {
+                    return (
+                        <Card style={{ width: '300px', height: '400px' }} key={space.id}>
+                            <CardHeader style={{ height: '200px'}} className=" d-flex justify-content-center align-items-center p-0 border rounded">
+                                <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                                    <Image 
+                                        src={`/${space.source_image}`} 
+                                        alt={space.name} 
+                                        width={300} 
+                                        height={150} 
+                                        className="border rounded img-fluid"
+                                        style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                                        />
+                                </div>
+                            </CardHeader>
+                            <CardBody>
+                                <CardTitle>{space.name}</CardTitle>
+                                <CardText>{space.description}</CardText>
+                            </CardBody>
+                            <CardFooter>
+                            {space.available ? 
+                                <Button variant="primary" onClick={() => reserveSpace(space.id)}> Alugar </Button>
+                                :
+                                <Button variant="danger" disabled> Indisponivel</Button>
+                            }
+                            </CardFooter>
+                        </Card>
+                    );
+                })
+                : <></>
+            }
         </div>
     );
 };
