@@ -25,8 +25,14 @@ export const Addspace = () => {
         tables_reserved: 0
     });
 
+    const [file, setFile] = useState<any>();
+
     const handleInputChange = (event: any) => {
-        let { name, value } = event.target;
+        let { name, value, files } = event.target;
+        
+        if (files) {
+            setFile(files[0]);
+        }
         
         if (name=='source_image'){
             value = "assets/"+value.split('\\')[2];
@@ -58,6 +64,15 @@ export const Addspace = () => {
         } 
         else if (spaceType=='space')
             await fetch('http://localhost:8080/api/createSpace', config);
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('source_image', file);
+            await fetch('http://localhost:8080/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+        }
     };
 
     const updateForm = async (event: any) => {
