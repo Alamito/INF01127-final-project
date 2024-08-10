@@ -35,7 +35,7 @@ export const Addspace = () => {
         }
         
         if (name=='source_image'){
-            value = "assets/"+value.split('\\')[2];
+            value = "assets/img/"+value.split('\\')[2];
         }
         if (name=='available'){
             available_switch = !available_switch;
