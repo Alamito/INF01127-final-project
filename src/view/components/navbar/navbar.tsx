@@ -6,11 +6,11 @@ import { LogOut } from "../logout/logout";
 export const Navbar = async () => {
     const session = await getServerSession();
 
-    const userIsAdmin = async (email: string) => {
-        const res = await fetch(`http://localhost:8080/api/isAdmin/${email}`);
+    const userIsEmployee = async (email: string) => {
+        const res = await fetch(`http://localhost:8080/api/isEmployee/${email}`);
         const data = await res.json();
         
-        return data.isAdmin;
+        return data.isEmployee;
     }  
 
     return (
@@ -25,7 +25,7 @@ export const Navbar = async () => {
                         <Link href="/">
                             Início
                         </Link>
-                        {await userIsAdmin(session?.user?.email as string) ? (
+                        {await userIsEmployee(session?.user?.email as string) ? (
                             <Link href="/admin">
                                 Admin
                             </Link>
