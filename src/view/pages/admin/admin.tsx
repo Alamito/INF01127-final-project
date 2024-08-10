@@ -4,13 +4,6 @@ import { getServerSession } from "next-auth";
 import TableRestaurant, { TablePlaces } from '@/view/components/adminTables/adminTables'
 import { Button, Container } from 'react-bootstrap';
 
-const userIsAdmin = async (email: string) => {
-    const res = await fetch(`http://localhost:8080/api/isAdmin/${email}`);
-    const data = await res.json();
-    
-    return data.isAdmin;
-}  
-
 export const Admin = async () => {
     const session = await getServerSession();
 
