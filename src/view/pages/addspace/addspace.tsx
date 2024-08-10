@@ -13,14 +13,14 @@ export const Addspace = () => {
         name: '',
         description: '',
         available: true,
-        source_image: 'assets/campo_de_futebol.jpeg'
+        source_image: 'assets/default_space.jpeg'
     });
 
     const [formDataRestaurant, setFormData2] = useState({
         name: '',
         description: '',
         available: true,
-        source_image: 'assets/restaurant1.jpg',
+        source_image: 'assets/default_restaurant.jpg',
         total_tables: 0,
         tables_reserved: 0
     });
@@ -50,7 +50,7 @@ export const Addspace = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        
+
         const config = {
             method: 'POST',
             headers: {
