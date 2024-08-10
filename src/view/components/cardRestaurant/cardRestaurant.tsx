@@ -29,7 +29,16 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
 
     const reserveRestaurant = async (restaurantID: number) => {
         await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
-        window.location.reload();
+
+        setRestaurants(restaurants.map((restaurant) => {
+            if (restaurant.id === restaurantID) {
+                return {
+                    ...restaurant,
+                    tables_reserved: restaurant.tables_reserved + 1
+                };
+            }
+            return restaurant;
+        }));
     }
     
     if (restaurants.length > 0){
@@ -83,14 +92,14 @@ export function RestaurantCard ( props: RestaurantCardProps): ReactElement {
             </Card.Text>
         </Card.Body>
         <Card.Footer>
-            { !props.isLogged ? // se não esta logado 
+            { !props.isLogged ?  
                 <Button variant="primary" disabled>Login Para Reservar</Button>
-             : props.restaurant.available ? // se esta logado ve se nao esta disponível
-                <Button variant="danger" disabled>Indisponível</Button>
-                 : props.restaurant.tables_reserved >= props.restaurant.total_tables ? // se esta disponivel ve se esta esgotado
+                : props.restaurant.tables_reserved >= props.restaurant.total_tables ? 
                     <Button variant="warning" disabled>Esgotado</Button> 
-                    : <Button variant="success" onClick={() => props.reserveRestaurant(props.restaurant.id)}>Reservar</Button> // se nenhum problema
-                 }
+                    : props.restaurant.available ?
+                        <Button variant="success" onClick={() => props.reserveRestaurant(props.restaurant.id)}>Reservar</Button>
+                        : <Button variant="danger" disabled>Indisponível</Button>
+            }
         </Card.Footer>
     </Card>)
 }
