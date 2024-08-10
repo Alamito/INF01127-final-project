@@ -12,7 +12,7 @@ export async function getRestaurants() {
 
 export async function reserveRestaurant(restaurantId) {
     return await prisma.restaurants.update({
-        where: { id: Number(restaurantId) , tables_reserved: {lte: total_tables}},
+        where: { id: Number(restaurantId)},
         data: { 
             tables_reserved: { increment: 1 }
          }
