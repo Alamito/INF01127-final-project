@@ -13,23 +13,29 @@ export const Addspace = () => {
         name: '',
         description: '',
         available: true,
-        source_image: 'assets/campo_de_futebol.jpeg'
+        source_image: 'assets/default_space.jpeg'
     });
 
     const [formDataRestaurant, setFormData2] = useState({
         name: '',
         description: '',
         available: true,
-        source_image: 'assets/restaurant1.jpg',
+        source_image: 'assets/default_restaurant.jpg',
         total_tables: 0,
         tables_reserved: 0
     });
 
+    const [file, setFile] = useState<any>();
+
     const handleInputChange = (event: any) => {
-        let { name, value } = event.target;
+        let { name, value, files } = event.target;
+        
+        if (files) {
+            setFile(files[0]);
+        }
         
         if (name=='source_image'){
-            value = "assets/"+value.split('\\')[2];
+            value = "assets/img/"+value.split('\\')[2];
         }
         if (name=='available'){
             available_switch = !available_switch;
@@ -44,7 +50,7 @@ export const Addspace = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        
+
         const config = {
             method: 'POST',
             headers: {
@@ -58,6 +64,15 @@ export const Addspace = () => {
         } 
         else if (spaceType=='space')
             await fetch('http://localhost:8080/api/createSpace', config);
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('source_image', file);
+            await fetch('http://localhost:8080/api/upload', {
+                method: 'POST',
+                body: formData,
+            });
+        }
     };
 
     const updateForm = async (event: any) => {

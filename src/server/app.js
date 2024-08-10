@@ -1,9 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from 'cors'; 
+import cors from 'cors';
 import { createUser, verifyCredentials, isEmployee, isStranger } from '../controller/user.js';
 import { getRestaurants, reserveRestaurant, deleteRestaurant , createRestaurant} from '../controller/restaurant.js';
 import { getSpaces, createSpace, reserveSpace, deleteSpace} from '../controller/space.js';
+import { upload } from '../controller/storage.js';
 
 const app = express();
 const port = 8080;
@@ -126,6 +127,14 @@ app.get('/api/deleteSpace/:id', async (req, res) => {
         const id = req.params.id;
         const reserve = await deleteSpace(id);
         res.status(200).json(reserve);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+app.post('/api/upload', upload.single('source_image'), (req, res) => {
+    try {
+        res.status(201).json({ message: 'File uploaded' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
