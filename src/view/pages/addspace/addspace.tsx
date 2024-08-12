@@ -1,13 +1,18 @@
 "use client";
+import { GenericAlert } from '@/view/components/alert/alert';
 import './addspace.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { IoAdd } from 'react-icons/io5';
+import { FaCheck, FaInfo } from 'react-icons/fa';
 
 let available_switch = false;
 let spaceType = 'space';
 
 export const Addspace = () => {
+    const [errorState, setErrorState] = useState(false)
+    const [successState, setSuccessState] = useState(false)
+
 
     const [formDataSpace, setFormData] = useState({
         name: '',
@@ -50,7 +55,7 @@ export const Addspace = () => {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-
+        let res
         const config = {
             method: 'POST',
             headers: {
@@ -60,10 +65,14 @@ export const Addspace = () => {
         }
         if (spaceType=='restaurant') {
             config.body = JSON.stringify(formDataRestaurant);
-            await fetch('http://localhost:8080/api/createRestaurant', config);
+            res = await fetch('http://localhost:8080/api/createRestaurant', config);
         } 
-        else if (spaceType=='space')
-            await fetch('http://localhost:8080/api/createSpace', config);
+        else if (spaceType=='space') {
+            res = await fetch('http://localhost:8080/api/createSpace', config);
+        } else {
+            return
+        }
+            
 
         if (file) {
             const formData = new FormData();
@@ -72,6 +81,20 @@ export const Addspace = () => {
                 method: 'POST',
                 body: formData,
             });
+        }
+        console.log(res.status)
+        if (res.status === 500) {
+            setErrorState(true);
+            setTimeout(() => {
+                setErrorState(false);
+            }, 3000);
+        }
+    
+        if (res.status === 201) {
+            setSuccessState(true);
+            setTimeout(() => {
+                setSuccessState(false);
+            }, 3000);
         }
     };
 
@@ -86,6 +109,12 @@ export const Addspace = () => {
 
     return (
         <div className="container-sign-in">
+        <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+            <FaInfo/>
+        </GenericAlert>
+        <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi inserido corretamente.'} className='mt-3 alert-center-top'>
+            <FaCheck/> 
+        </GenericAlert>
         <h1 className="display-1">Cadastro de Espaço</h1>
         <div className="separator"></div>
         <input placeholder="Nome" name="name" className="input-style" type="text" onChange={handleInputChange} required></input>

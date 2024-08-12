@@ -111,7 +111,7 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Reservas dispníveis</th>
+                <th>Descrição</th>
                 <th colSpan={2}>Ações</th>
             </tr>
         </thead>
@@ -120,6 +120,7 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
             ? places.map((place) => (
                 <tr key={place.id}>
                     <td>{place.name}</td>
+                    <td>{place.description}</td>
                     <td style={{ width: '150px'}}>
                         <Button variant="danger" onClick={() => deleteSpace(place.id)} className="me-2">
                             Delete

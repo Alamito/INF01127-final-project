@@ -3,6 +3,8 @@
 import { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { GenericAlert } from '../alert/alert';
+import { FaCheck, FaInfo } from 'react-icons/fa';
 
 interface Restaurant {
     id: number;
@@ -13,8 +15,9 @@ interface Restaurant {
     source_image: string;
 }
 
-export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
-
+export default function GridRestaurants({isLogged}: {isLogged: boolean}) {
+    const [errorState, setErrorState] = useState(false)
+    const [successState, setSuccessState] = useState(false)
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
     useEffect(() => {
@@ -28,8 +31,7 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
     }, []);
 
     const reserveRestaurant = async (restaurantID: number) => {
-        await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
-
+        const res = await fetch(`http://localhost:8080/api/reserveRestaurant/${restaurantID}`);
         setRestaurants(restaurants.map((restaurant) => {
             if (restaurant.id === restaurantID) {
                 return {
@@ -39,11 +41,32 @@ export default function CardRestaurant({isLogged}: {isLogged: boolean}) {
             }
             return restaurant;
         }));
+
+        console.log(res.status)
+        if (res.status === 500) {
+            setErrorState(true);
+            setTimeout(() => {
+                setErrorState(false);
+            }, 3000);
+        }
+    
+        if (res.status === 200) {
+            setSuccessState(true);
+            setTimeout(() => {
+                setSuccessState(false);
+            }, 3000);
+        }
     }
     
     if (restaurants.length > 0){
         return (
             <Container style={{ width: '70%' }} className='p-5'>
+            <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+                <FaInfo/>
+            </GenericAlert>
+            <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi inserido corretamente.'} className='mt-3 alert-center-top'>
+                <FaCheck/> 
+            </GenericAlert>
             <h5 className='display-6 mb-4'>Restaurantes</h5>
             <p className='mb-5 p-1 border-bottom'>O nosso clube conta com diversos restaurantes que representam diferentes cozinhas ao redor do mundo.</p>
             <Row>
