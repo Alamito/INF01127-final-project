@@ -15,7 +15,7 @@ interface Space {
     source_image: string;
 }
 
-export function GridSpaces({isLogged}: {isLogged: boolean}) {
+export function GridSpaces({isLogged, isStranger}: {isLogged: boolean, isStranger: boolean}) {
     const [spaces, setSpaces] = useState<Space[]>([]);
     const [errorState, setErrorState] = useState(false)
     const [successState, setSuccessState] = useState(false)
@@ -61,10 +61,10 @@ export function GridSpaces({isLogged}: {isLogged: boolean}) {
     if (spaces.length > 0) {
         return (
             <Container style={{ width: '70%' }} className='p-5'>
-                <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+                <GenericAlert showModal={errorState} theme={'danger'} text={'Ops! Não foi possível reservar este espaço.'} className='mt-3 alert-center-top'>
                     <FaInfo/>
                 </GenericAlert>
-                <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi inserido corretamente.'} className='mt-3 alert-center-top'>
+                <GenericAlert showModal={successState} theme={'success'} text={'Tudo certo! O Espaço foi reservado com sucesso!'} className='mt-3 alert-center-top'>
                     <FaCheck/> 
                 </GenericAlert>
                 <h5 className='display-6 mb-4'>Espaços</h5>
@@ -76,6 +76,7 @@ export function GridSpaces({isLogged}: {isLogged: boolean}) {
                                 space={space} 
                                 reserveSpace={reserveSpace} 
                                 isLogged={isLogged}
+                                isStranger={isStranger}
                             />
                         </Col>
                     ))}
@@ -91,6 +92,7 @@ interface SpaceCardProps {
     space: Space,
     reserveSpace: (spaceID: number) => Promise<void>,
     isLogged: boolean
+    isStranger: boolean
 }
 
 export function SpaceCard(props: SpaceCardProps): ReactElement {
@@ -115,9 +117,11 @@ export function SpaceCard(props: SpaceCardProps): ReactElement {
             <Card.Footer>
                 { !props.isLogged ?  
                 <Button variant="primary" disabled>Login Para Reservar</Button>
-                    : props.space.available ?
-                        <Button variant="success" onClick={() => props.reserveSpace(props.space.id)}>Reservar</Button>
-                        : <Button variant="danger" disabled>Alugado</Button>
+                    : !props.space.available ?
+                        <Button variant="danger" disabled>Alugado</Button>
+                        : props.isStranger ?
+                            <Button variant="warning" disabled>Associe-se para Alugar</Button>
+                            :<Button variant="success" onClick={() => props.reserveSpace(props.space.id)}>Reservar</Button>
             }
             </Card.Footer>
         </Card>

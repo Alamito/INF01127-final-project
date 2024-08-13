@@ -8,7 +8,7 @@ import GridRestaurants from "@/view/components/cardRestaurant/cardRestaurant";
 export const Home = async () => {
     const session = await getServerSession();
 
-    const userIsStranger = async () => {
+    const userIsStranger = async (): Promise<boolean> => {
         const res = await fetch(`http://localhost:8080/api/isStranger/${session?.user?.email}`);
         const data = await res.json();
 
@@ -18,6 +18,7 @@ export const Home = async () => {
         
         return true;
     }
+    const isStranger = await userIsStranger()
 
     return (
         <div className="container-home  bg-white">
@@ -25,7 +26,7 @@ export const Home = async () => {
             <div className="separator"></div>
             <GridRestaurants isLogged={session?.user?.name ? true : false}/>
             <div className="separator"></div>
-            <GridSpaces isLogged={session?.user?.name ? true : false}/>
+            <GridSpaces isLogged={session?.user?.name ? true : false} isStranger={isStranger}/>
         </div>
     );
 }

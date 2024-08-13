@@ -28,7 +28,7 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
     const [errorState, setErrorState] = useState(false)
     const [successState, setSuccessState] = useState(false)
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
+    const [notImplemented, notImplementedState] = useState(false)
     useEffect(() => {
         const fetchSessionAndData = async () => {
             const resRestaurants = await fetch("http://localhost:8080/api/restaurants");
@@ -71,6 +71,9 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
             <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi deletado com sucesso.'} className='mt-3 alert-center-top'>
                 <FaCheck/> 
             </GenericAlert>
+            <GenericAlert showModal={notImplemented} theme={'danger'} text={'Esta função ainda não foi implementada.'} className='mt-3 alert-center-top'>
+                <FaInfo/> 
+            </GenericAlert>
         <thead>
             <tr>
                 <th>Nome</th>
@@ -90,8 +93,13 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
                         </Button>
                     </td>
                     <td style={{ width: '150px'}}>
-                        <Button variant="primary">
-                            Edit
+                        <Button variant="primary"onClick={() => {
+                                        notImplementedState(true);
+                                        setTimeout(() => {
+                                            notImplementedState(false);
+                                        }, 300000);
+                        }}>
+                            Editar
                         </Button>
                     </td>
                 </tr>
@@ -109,6 +117,7 @@ interface TablePlacesProps{
 export function TablePlaces(props: TablePlacesProps): ReactElement {
     const [errorState, setErrorState] = useState(false)
     const [successState, setSuccessState] = useState(false)
+    const [notImplemented, notImplementedState] = useState(false)
     const [places, setPlaces] = useState<Place[]>([]);
 
     useEffect(() => {
@@ -124,6 +133,7 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
     const deleteSpace = async (spaceID: number) => {
         const res = await fetch(`http://localhost:8080/api/deleteSpace/${spaceID}`);
         console.log(res.status)
+        window.location.reload();
         if (res.status === 500) {
             setErrorState(true);
             setTimeout(() => {
@@ -147,6 +157,9 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
             <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi deletado com sucesso.'} className='mt-3 alert-center-top'>
                 <FaCheck/> 
             </GenericAlert>
+            <GenericAlert showModal={notImplemented} theme={'danger'} text={'Esta função ainda não foi implementada.'} className='mt-3 alert-center-top'>
+                <FaInfo/> 
+            </GenericAlert>
         <thead>
             <tr>
                 <th>Nome</th>
@@ -166,8 +179,13 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
                         </Button>
                     </td>
                     <td style={{ width: '150px'}}>
-                        <Button variant="primary">
-                            Edit
+                        <Button variant="primary" onClick={() => {
+                                        notImplementedState(true);
+                                        setTimeout(() => {
+                                            notImplementedState(false);
+                                        }, 300000);
+                        }}>
+                            Editar
                         </Button>
                     </td>
                 </tr>

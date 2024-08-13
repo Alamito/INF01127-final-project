@@ -140,19 +140,22 @@ export const Addspace = () => {
         }
 
         <input className="input-style" placeholder="Total de Mesas" hidden id='tables' name="total_tables" type="number" min={1} style={{width: '175px'}} onChange={handleInputChange}></input>
-
-        <Button onClick={handleSubmit}>
-            <Row>
-                <Col className='d-flex align-items-center justify-content-center'>
-                    <IoAdd className='icone'/>
-                </Col>
-                <Col style={{paddingLeft: '0'}} className='p-2'>
-                    Adicionar
-                </Col>
-            </Row>
-            
-            
-        </Button>
+        <Row>
+            <Col xs={5}>
+                <Button variant='secondary'>
+                    <a href="/admin" style={{ textDecoration: 'none', color: 'white'}}>
+                        Voltar
+                    </a>
+                </Button>
+            </Col>
+            <Col xs={7}>
+            <Button onClick={handleSubmit}>
+                    <Col style={{paddingLeft: '0'}}>
+                        Adicionar
+                    </Col>
+            </Button>
+            </Col>
+        </Row>
 
     </div>
     );

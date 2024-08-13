@@ -61,10 +61,10 @@ export default function GridRestaurants({isLogged}: {isLogged: boolean}) {
     if (restaurants.length > 0){
         return (
             <Container style={{ width: '70%' }} className='p-5'>
-            <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+            <GenericAlert showModal={errorState} theme={'danger'} text={'Ops! Ocorreu um erro ao reservar sua mesa.'} className='mt-3 alert-center-top'>
                 <FaInfo/>
             </GenericAlert>
-            <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi inserido corretamente.'} className='mt-3 alert-center-top'>
+            <GenericAlert showModal={successState} theme={'success'} text={'Tudo certo! Sua mesa foi reservada com sucesso!'} className='mt-3 alert-center-top'>
                 <FaCheck/> 
             </GenericAlert>
             <h5 className='display-6 mb-4'>Restaurantes</h5>
