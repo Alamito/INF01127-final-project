@@ -97,7 +97,7 @@ interface SpaceCardProps {
 
 export function SpaceCard(props: SpaceCardProps): ReactElement {
     return (
-        <Card style={{ width: '300px', height: '400px' }} key={props.space.id}>
+        <Card style={{ width: '300px', height: '470px' }} key={props.space.id}>
             <Card.Header style={{ height: '200px' }} className="d-flex justify-content-center align-items-center p-0 border rounded">
                 <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
                     <Image
