@@ -2,11 +2,9 @@
 
 import './cardAdmin.css';
 import { ReactElement, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { Button, Table } from 'react-bootstrap';
-import campoDeFutebol from "../../../../public/assets/campo_de_futebol.jpeg";
-import { FaCheck } from 'react-icons/fa';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import { FaCheck, FaInfo } from 'react-icons/fa';
+import { GenericAlert } from '../alert/alert';
 
 interface Restaurant {
     id: number;
@@ -27,9 +25,10 @@ interface Place {
 }
 
 export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
-
+    const [errorState, setErrorState] = useState(false)
+    const [successState, setSuccessState] = useState(false)
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
+    const [notImplemented, notImplementedState] = useState(false)
     useEffect(() => {
         const fetchSessionAndData = async () => {
             const resRestaurants = await fetch("http://localhost:8080/api/restaurants");
@@ -41,8 +40,22 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
     }, []);
 
     const deleteRestaurant = async (restaurantID: number) => {
-        await fetch(`http://localhost:8080/api/deleteRestaurant/${restaurantID}`);
+        const res = await fetch(`http://localhost:8080/api/deleteRestaurant/${restaurantID}`);
         window.location.reload();
+        console.log(res.status)
+        if (res.status === 500) {
+            setErrorState(true);
+            setTimeout(() => {
+                setErrorState(false);
+            }, 3000);
+        }
+    
+        if (res.status === 200) {
+            setSuccessState(true);
+            setTimeout(() => {
+                setSuccessState(false);
+            }, 3000);
+        }
     }
 
     /* const editRestaurant = async (restaurantID: number) => {
@@ -52,6 +65,15 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
 
     return (
         <Table striped bordered hover>
+            <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+                <FaInfo/>
+            </GenericAlert>
+            <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi deletado com sucesso.'} className='mt-3 alert-center-top'>
+                <FaCheck/> 
+            </GenericAlert>
+            <GenericAlert showModal={notImplemented} theme={'danger'} text={'Esta função ainda não foi implementada.'} className='mt-3 alert-center-top'>
+                <FaInfo/> 
+            </GenericAlert>
         <thead>
             <tr>
                 <th>Nome</th>
@@ -71,8 +93,13 @@ export default function TableRestaurant({isLogged}: {isLogged: boolean}) {
                         </Button>
                     </td>
                     <td style={{ width: '150px'}}>
-                        <Button variant="primary">
-                            Edit
+                        <Button variant="primary"onClick={() => {
+                                        notImplementedState(true);
+                                        setTimeout(() => {
+                                            notImplementedState(false);
+                                        }, 300000);
+                        }}>
+                            Editar
                         </Button>
                     </td>
                 </tr>
@@ -88,7 +115,9 @@ interface TablePlacesProps{
 }
 
 export function TablePlaces(props: TablePlacesProps): ReactElement {
-
+    const [errorState, setErrorState] = useState(false)
+    const [successState, setSuccessState] = useState(false)
+    const [notImplemented, notImplementedState] = useState(false)
     const [places, setPlaces] = useState<Place[]>([]);
 
     useEffect(() => {
@@ -102,16 +131,39 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
     }, []);
 
     const deleteSpace = async (spaceID: number) => {
-        await fetch(`http://localhost:8080/api/deleteSpace/${spaceID}`);
+        const res = await fetch(`http://localhost:8080/api/deleteSpace/${spaceID}`);
+        console.log(res.status)
         window.location.reload();
+        if (res.status === 500) {
+            setErrorState(true);
+            setTimeout(() => {
+                setErrorState(false);
+            }, 3000);
+        }
+    
+        if (res.status === 200) {
+            setSuccessState(true);
+            setTimeout(() => {
+                setSuccessState(false);
+            }, 3000);
+        }
     }
 
     return (
         <Table striped bordered hover>
+            <GenericAlert showModal={errorState} theme={'danger'} text={'Não foi possível concluir a tarefa corretamente.'} className='mt-3 alert-center-top'>
+                <FaInfo/>
+            </GenericAlert>
+            <GenericAlert showModal={successState} theme={'success'} text={'O espaço foi deletado com sucesso.'} className='mt-3 alert-center-top'>
+                <FaCheck/> 
+            </GenericAlert>
+            <GenericAlert showModal={notImplemented} theme={'danger'} text={'Esta função ainda não foi implementada.'} className='mt-3 alert-center-top'>
+                <FaInfo/> 
+            </GenericAlert>
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Reservas dispníveis</th>
+                <th>Descrição</th>
                 <th colSpan={2}>Ações</th>
             </tr>
         </thead>
@@ -120,14 +172,20 @@ export function TablePlaces(props: TablePlacesProps): ReactElement {
             ? places.map((place) => (
                 <tr key={place.id}>
                     <td>{place.name}</td>
+                    <td>{place.description}</td>
                     <td style={{ width: '150px'}}>
                         <Button variant="danger" onClick={() => deleteSpace(place.id)} className="me-2">
                             Delete
                         </Button>
                     </td>
                     <td style={{ width: '150px'}}>
-                        <Button variant="primary">
-                            Edit
+                        <Button variant="primary" onClick={() => {
+                                        notImplementedState(true);
+                                        setTimeout(() => {
+                                            notImplementedState(false);
+                                        }, 300000);
+                        }}>
+                            Editar
                         </Button>
                     </td>
                 </tr>

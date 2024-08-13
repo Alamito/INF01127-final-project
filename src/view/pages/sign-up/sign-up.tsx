@@ -3,7 +3,7 @@ import { GenericAlert } from '@/view/components/alert/alert';
 import './sign-up.css';
 import React, { useState } from 'react';
 import { Button, Card, CardBody, FloatingLabel, Form } from 'react-bootstrap';
-import { FaInfo } from 'react-icons/fa';
+import { FaCheck, FaInfo } from 'react-icons/fa';
 
 export const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -15,6 +15,7 @@ export const SignUp = () => {
         reservations: 0
     });
     const [signUpError, setSignUpError] = useState(false)
+    const [signUpSuccess, setSignUpSuccess] = useState(false)
     
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
@@ -40,8 +41,12 @@ export const SignUp = () => {
             setTimeout(() => {
                 setSignUpError(false);
             }, 3000); // 3000 ms = 3 seconds
-        } else {
-            setSignUpError(false);
+        }
+        if (res.status === 200 || res.status === 201 ) {
+            setSignUpSuccess(true);
+            setTimeout(() => {
+                setSignUpSuccess(false);
+            }, 3000);
         }
     };
 
@@ -80,6 +85,9 @@ export const SignUp = () => {
                             </div>
                             <GenericAlert showModal={signUpError} theme={'danger'} text={'Não foi possível criar este usuário.'} className='mt-3'>
                                 <FaInfo/>
+                            </GenericAlert>
+                            <GenericAlert showModal={signUpSuccess} theme={'success'} text={'A sua conta for criada com sucesso!'} className='mt-3'>
+                                <FaCheck/>
                             </GenericAlert>
                             <div className="d-flex flex-column m-4">
                                 <Button variant="success" size="lg" className="mb-2 btn-lg" onClick={handleSubmit}>
